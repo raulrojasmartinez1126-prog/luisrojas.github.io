@@ -26,4 +26,115 @@ body {
   color: white;
   text-align: center;
   padding: 18px;
-  font-size: 1
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 0 0 18px 18px;
+  margin-bottom: 20px;
+}
+
+/* BLOQUES */
+.bloque {
+  background: #f9fafc;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* TÍTULOS */
+h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #0b5ed7;
+}
+
+/* OPCIONES */
+label {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #e1e5ea;
+  cursor: pointer;
+}
+
+/* INPUTS */
+input {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* BOTÓN */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #0b5ed7;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* RESUMEN */
+#resumen {
+  background: #eef3ff;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 20px;
+  white-space: pre-line;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    🩺 Evaluación Clínica Respiratoria
+  </div>
+
+  <!-- MOTIVO -->
+  <div class="bloque">
+    <h2>Motivo de consulta</h2>
+    <label><input type="checkbox" value="Tos"> Tos</label>
+    <label><input type="checkbox" value="Disnea"> Disnea</label>
+    <label><input type="checkbox" value="Dolor torácico"> Dolor torácico</label>
+  </div>
+
+  <!-- DOLOR TORÁCICO -->
+  <div class="bloque">
+    <h2>Características del dolor torácico</h2>
+    <label><input type="checkbox" value="Dolor opresivo"> Opresivo</label>
+    <label><input type="checkbox" value="Dolor quemante"> Quemante</label>
+    <label><input type="checkbox" value="Dolor punzante"> Punzante</label>
+    <label><input type="checkbox" value="Dolor irradiado"> Irradiado</label>
+  </div>
+
+  <!-- BOTÓN -->
+  <button onclick="generarResumen()">Ver resumen</button>
+
+  <!-- RESUMEN -->
+  <div id="resumen"></div>
+
+</div>
+
+<script>
+function generarResumen() {
+  const checks = document.querySelectorAll('input[type="checkbox"]:checked');
+  let texto = "RESUMEN CLÍNICO:\n";
+
+  checks.forEach(c => {
+    texto += "- " + c.value + "\n";
+  });
+
+  document.getElementById("resumen").innerText = texto;
+}
+</script>
+
+</body>
+</html>
