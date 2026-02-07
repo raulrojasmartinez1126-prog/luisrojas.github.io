@@ -1,86 +1,272 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Evaluación Clínica Respiratoria</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-    }
-    h1 {
-      color: #0b5ed7;
-    }
-    .bloque {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .oculto {
-      display: none;
-    }
-    .alerta {
-      color: red;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Evaluación Clínica Respiratoria</title>
+
+<style>
+/* ===== ESTILO APP ===== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #e9f0f7, #f4f6f8);
+}
+
+.app {
+  max-width: 480px;
+  margin: auto;
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 16px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: #0b5ed7;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 0 0 20px 20px;
+  margin-bottom: 20px;
+}
+
+/* ===== BLOQUES ===== */
+.bloque {
+  background: white;
+  padding: 15px;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.subbloque {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+h3 {
+  margin-top: 0;
+  color: #0b5ed7;
+}
+
+/* ===== INPUTS ===== */
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+label {
+  display: block;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: #f8f9fb;
+  cursor: pointer;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  transform: scale(1.2);
+  margin-right: 8px;
+}
+
+/* ===== BOTÓN ===== */
+button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  background: #0b5ed7;
+  color: white;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ===== ALERTA ===== */
+.alerta {
+  color: red;
+  font-weight: bold;
+}
+
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 </head>
 
 <body>
 
-<h1>Evaluación Clínica Respiratoria</h1>
+<div class="app">
 
+<div class="header">
+🩺 Evaluación Clínica Respiratoria
+</div>
+
+<!-- DATOS FILIATORIOS -->
 <div class="bloque">
-  <h3>Motivo de consulta</h3>
-  <label><input type="checkbox" id="tos"> Tos</label><br>
-  <label><input type="checkbox" id="disnea"> Disnea</label>
+<h3>Datos filiatorios</h3>
+
+<div class="subbloque">
+<label>Nombre y apellido</label>
+<input type="text" id="nombre">
 </div>
 
-<div class="bloque oculto" id="bloqueTos">
-  <h3>Características de la tos</h3>
-  <label><input type="radio" name="tosTipo" onclick="mostrarEsputo()"> Productiva</label><br>
-  <label><input type="radio" name="tosTipo" onclick="ocultarEsputo()"> Seca</label>
+<div class="subbloque">
+<label>Edad</label>
+<input type="number" id="edad">
 </div>
 
-<div class="bloque oculto" id="bloqueEsputo">
-  <h3>Color del esputo</h3>
-  <label><input type="checkbox"> Blanco</label><br>
-  <label><input type="checkbox"> Amarillo</label><br>
-  <label><input type="checkbox"> Verdoso</label><br>
-  <label><input type="checkbox"> Con sangre</label>
-  <p class="alerta">⚠ Hemoptisis: signo de alarma</p>
+<div class="subbloque">
+<label>Sexo</label>
+<select id="sexo">
+<option value="">-- seleccionar --</option>
+<option value="Masculino">Masculino</option>
+<option value="Femenino">Femenino</option>
+</select>
 </div>
 
+<div class="subbloque">
+<label>Procedencia</label>
+<input type="text" id="procedencia">
+</div>
+
+<div class="subbloque">
+<label>Ocupación</label>
+<input type="text" id="ocupacion">
+</div>
+</div>
+
+<!-- MOTIVO DE CONSULTA -->
 <div class="bloque">
-  <h3>Factores de riesgo</h3>
-  <label><input type="checkbox"> Fumador</label><br>
-  <label><input type="checkbox"> Contacto TB</label><br>
-  <label><input type="checkbox"> Asma / EPOC</label>
+<h3>Motivo de consulta</h3>
+<label><input type="checkbox" id="tos"> Tos</label>
+<label><input type="checkbox" id="disnea"> Disnea</label>
+<label><input type="checkbox" id="dolorToracico"> Dolor torácico</label>
+</div>
+
+<!-- DOLOR TORÁCICO -->
+<div class="bloque" id="bloqueDolor" style="display:none">
+<h3>Dolor torácico</h3>
+<label><input type="checkbox" class="dolorTipo" value="Opresivo"> Opresivo 🚨</label>
+<label><input type="checkbox" class="dolorTipo" value="Quemante"> Quemante</label>
+<label><input type="checkbox" class="dolorTipo" value="Punzante"> Punzante</label>
+<label><input type="checkbox" class="dolorTipo" value="Irradiado a brazo o mandíbula"> Irradiado a brazo o mandíbula 🚨</label>
+</div>
+
+<!-- TOS -->
+<div class="bloque" id="bloqueTos" style="display:none">
+<h3>Tos</h3>
+
+<label><input type="radio" name="tosTipo" value="Productiva" id="productiva"> Productiva</label>
+<label><input type="radio" name="tosTipo" value="Seca" id="seca"> Seca</label>
+
+<div class="subbloque" id="bloqueEsputo" style="display:none">
+<strong>Esputo</strong>
+<label><input type="checkbox" value="Blanco"> Blanco</label>
+<label><input type="checkbox" value="Amarillo"> Amarillo</label>
+<label><input type="checkbox" value="Verdoso"> Verdoso</label>
+<label><input type="checkbox" value="Hemoptisis"> Con sangre 🚨</label>
+</div>
+</div>
+
+<!-- DISNEA -->
+<div class="bloque" id="bloqueDisnea" style="display:none">
+<h3>Disnea</h3>
+<label><input type="checkbox" class="disneaTipo" value="De esfuerzo"> De esfuerzo</label>
+<label><input type="checkbox" class="disneaTipo" value="En reposo"> En reposo 🚨</label>
+<label><input type="checkbox" class="disneaTipo" value="Nocturna"> Nocturna</label>
+<label><input type="checkbox" class="disneaTipo" value="Progresiva"> Progresiva</label>
+</div>
+
+<!-- BOTÓN -->
+<div class="bloque">
+<button id="btnResumen">🩺 Generar resumen clínico</button>
+</div>
+
+<!-- RESUMEN -->
+<div class="bloque" id="resumenClinico" style="display:none">
+<h3>Resumen clínico</h3>
+<pre id="textoResumen"></pre>
+</div>
+
 </div>
 
 <script>
-  const tos = document.getElementById("tos");
-  const bloqueTos = document.getElementById("bloqueTos");
+const tos = document.getElementById("tos");
+const disnea = document.getElementById("disnea");
+const dolorToracico = document.getElementById("dolorToracico");
 
-  tos.addEventListener("change", function() {
-    if (this.checked) {
-      bloqueTos.classList.remove("oculto");
-    } else {
-      bloqueTos.classList.add("oculto");
-      ocultarEsputo();
-    }
-  });
+const bloqueTos = document.getElementById("bloqueTos");
+const bloqueDisnea = document.getElementById("bloqueDisnea");
+const bloqueDolor = document.getElementById("bloqueDolor");
+const bloqueEsputo = document.getElementById("bloqueEsputo");
 
-  function mostrarEsputo() {
-    document.getElementById("bloqueEsputo").classList.remove("oculto");
+const productiva = document.getElementById("productiva");
+const seca = document.getElementById("seca");
+
+tos.addEventListener("change", () => {
+  bloqueTos.style.display = tos.checked ? "block" : "none";
+});
+
+productiva.addEventListener("change", () => bloqueEsputo.style.display = "block");
+seca.addEventListener("change", () => bloqueEsputo.style.display = "none");
+
+disnea.addEventListener("change", () => {
+  bloqueDisnea.style.display = disnea.checked ? "block" : "none";
+});
+
+dolorToracico.addEventListener("change", () => {
+  bloqueDolor.style.display = dolorToracico.checked ? "block" : "none";
+});
+
+document.getElementById("btnResumen").addEventListener("click", () => {
+  let r = "";
+  r += "Paciente: " + (nombre.value || "NC") + "\n";
+  r += "Edad: " + (edad.value || "?") + " años\n";
+  r += "Sexo: " + (sexo.value || "NC") + "\n";
+  r += "Procedencia: " + (procedencia.value || "NC") + "\n";
+  r += "Ocupación: " + (ocupacion.value || "NC") + "\n\n";
+
+  r += "Motivo de consulta:\n";
+
+  if (tos.checked) {
+    const t = document.querySelector('input[name="tosTipo"]:checked');
+    r += "- Tos" + (t ? " (" + t.value + ")" : "") + "\n";
   }
 
-  function ocultarEsputo() {
-    document.getElementById("bloqueEsputo").classList.add("oculto");
+  if (disnea.checked) {
+    const d = [...document.querySelectorAll(".disneaTipo:checked")].map(e => e.value).join(", ");
+    r += "- Disnea" + (d ? " (" + d + ")" : "") + "\n";
   }
+
+  if (dolorToracico.checked) {
+    const dt = [...document.querySelectorAll(".dolorTipo:checked")].map(e => e.value).join(", ");
+    r += "- Dolor torácico" + (dt ? " (" + dt + ")" : "") + "\n";
+  }
+
+  textoResumen.textContent = r;
+  resumenClinico.style.display = "block";
+});
 </script>
 
 </body>
